@@ -54,6 +54,7 @@ public class BaseActor extends Actor
         animationPaused = pause;
       }
 
+    // Animation from array of filenames
     public Animation<TextureRegion> loadAimationFromFiles(String[] fileNames, float frameDuration, boolean loop)
       {
         int fileCount = fileNames.length;
@@ -83,7 +84,49 @@ public class BaseActor extends Actor
         }
         return anim;
       }
-
+    
+    // Animation from texturesheet
+    public Animation<TextureRegion> loadAnimationFromSheet(String fileName,int rows,int cols,float frameDuration,boolean loop)
+      {
+        Texture texture = new Texture(Gdx.files.internal(fileName));
+        texture.setFilter(TextureFilter.Linear,TextureFilter.Linear);
+        int frameWidth = texture.getWidth()/cols;
+        int frameHeight = texture.getHeight()/rows;
+        
+        TextureRegion[][] temp = TextureRegion.split(texture, frameWidth, frameHeight);
+        
+        Array<TextureRegion> textureArray = new Array<TextureRegion>();
+        // Add textureregion in array
+        for(int r=0;r<rows;r++)
+            for(int c=0;c<cols;c++)
+                    textureArray.add(temp[r][c]);
+        
+        Animation<TextureRegion> anim = new Animation<TextureRegion>(frameDuration,textureArray);
+        
+        if(loop)
+            anim.setPlayMode(Animation.PlayMode.LOOP);
+        else
+            anim.setPlayMode(Animation.PlayMode.NORMAL);
+        
+        if(animation == null)
+            setAnimation(anim);
+        return anim;
+      }
+    
+    // for setting single texture by using animation technique
+    public Animation<TextureRegion> loadTexture(String fileName)
+      {
+        String[] fileNames = new String[1];
+        fileNames[0] = fileName;
+        return this.loadAimationFromFiles(fileNames, 1, true);
+      }
+    
+    // to check whether animation is finished
+    public boolean isAnimationFinished()
+      {
+        return animation.isAnimationFinished(elapsedTime);
+      }
+    
     public void draw(Batch batch, float parentAlpha)
       {
         super.draw(batch, parentAlpha);
