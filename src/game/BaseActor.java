@@ -29,6 +29,10 @@ public class BaseActor extends Actor
     private boolean animationPaused;
     
     private Vector2 velocityVec;
+    
+    private Vector2 accelerationVec;
+    private float acceleration;
+    
     public BaseActor(float x, float y, Stage s)
       {
         // call constructor from Actor class
@@ -36,10 +40,15 @@ public class BaseActor extends Actor
         // perform additional initialization tasks
         setPosition(x, y);
         s.addActor(this);
+        
         animation = null;
         elapsedTime = 0;
         animationPaused = false;
+        
         velocityVec = new Vector2(0,0);
+        
+        accelerationVec = new Vector2(0,0);
+        acceleration = 0;
       }
 
     private void setAnimation(Animation<TextureRegion> anim)
@@ -167,6 +176,22 @@ public class BaseActor extends Actor
     public boolean isMoving()
       {
         return (this.getSpeed() > 0);     
+      }
+    
+    // acceleration methods
+    public void setAcceleration(float acc)
+      {
+        acceleration = acc;
+      }
+
+    public void accelerateAtAngle(float angle)
+      {
+        accelerationVec.add(new Vector2(acceleration, 0).setAngle(angle));
+      }
+    
+    public void accelerateForward()
+      {
+        accelerateAtAngle(getRotation());
       }
     
     public void draw(Batch batch, float parentAlpha)
