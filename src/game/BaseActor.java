@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
 
 /**
  *
@@ -325,6 +326,32 @@ public class BaseActor extends Actor
     public void setOpacity(float opacity)
       {
         this.getColor().a = opacity;
+      }
+    
+    public static ArrayList<BaseActor> getList(Stage stage, String className)
+      {
+        ArrayList<BaseActor> list = new ArrayList<BaseActor>();
+        Class theClass = null;
+        try
+        {
+            theClass = Class.forName(className);
+        }
+        catch(ClassNotFoundException error)
+        {
+            error.printStackTrace();
+        }
+        
+        for(Actor a : stage.getActors())
+        {
+            if(theClass.isInstance(a))
+                list.add((BaseActor)a);
+        }
+        return list;
+      }
+    
+    public static int count(Stage stage, String className)
+      {
+        return getList(stage,className).size();
       }
     
     public void draw(Batch batch, float parentAlpha)
