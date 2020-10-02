@@ -33,6 +33,9 @@ public class BaseActor extends Actor
     private Vector2 accelerationVec;
     private float acceleration;
     
+    private float maxSpeed;
+    private float deceleration;
+    
     public BaseActor(float x, float y, Stage s)
       {
         // call constructor from Actor class
@@ -49,6 +52,9 @@ public class BaseActor extends Actor
         
         accelerationVec = new Vector2(0,0);
         acceleration = 0;
+        
+        maxSpeed = 1000;
+        deceleration = 0;
       }
 
     private void setAnimation(Animation<TextureRegion> anim)
@@ -192,6 +198,16 @@ public class BaseActor extends Actor
     public void accelerateForward()
       {
         accelerateAtAngle(getRotation());
+      }
+    
+    public void setMaxSpeed(float ms)
+      {
+        maxSpeed = ms;
+      }
+    
+    public void setDeceleration(float dec)
+      {
+        deceleration = dec;
       }
     
     public void draw(Batch batch, float parentAlpha)
