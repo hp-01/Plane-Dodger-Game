@@ -427,6 +427,14 @@ public class BaseActor extends Group
         cam.update();
       }
 
+    public void dispose()
+      {
+        for(TextureRegion texture : animation.getKeyFrames())
+        {
+            texture.getTexture().dispose();
+        }
+      }
+    
     public void draw(Batch batch, float parentAlpha)
       {
         // apply color tint effect
