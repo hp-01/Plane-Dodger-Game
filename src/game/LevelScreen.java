@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package game;
 
 import com.badlogic.gdx.graphics.Color;
@@ -19,13 +18,16 @@ public class LevelScreen extends BaseScreen
     @Override
     public void initialize()
       {
-        
+        new Sky(0, 0, mainStage);
+        new Sky(800, 0, mainStage);
+        new Ground(0, 0, mainStage);
+        new Ground(800, 0, mainStage);
       }
 
     @Override
     public void update(float dt)
       {
-        
+
       }
-    
+
 }
