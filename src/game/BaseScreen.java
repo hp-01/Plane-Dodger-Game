@@ -51,7 +51,7 @@ public abstract class BaseScreen implements Screen, InputProcessor
     @Override
     public void show()
       {
-        InputMultiplexer im = (InputMultiplexer)Gdx.input.getInputProcessor();
+        InputMultiplexer im = (InputMultiplexer) Gdx.input.getInputProcessor();
         im.addProcessor(this);
         im.addProcessor(mainStage);
         im.addProcessor(uiStage);
@@ -78,7 +78,10 @@ public abstract class BaseScreen implements Screen, InputProcessor
     @Override
     public void hide()
       {
-
+        InputMultiplexer im = (InputMultiplexer) Gdx.input.getInputProcessor();
+        im.removeProcessor(this);
+        im.removeProcessor(mainStage);
+        im.removeProcessor(uiStage);
       }
 
     @Override
