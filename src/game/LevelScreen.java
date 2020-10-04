@@ -10,7 +10,19 @@ package game;
  *
  * @author Harsh Pandey
  */
-public class LevelScreen
+public class LevelScreen extends BaseScreen
 {
+
+    @Override
+    public void initialize()
+      {
+        
+      }
+
+    @Override
+    public void update(float dt)
+      {
+        
+      }
     
 }
