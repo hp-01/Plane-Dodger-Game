@@ -49,6 +49,11 @@ public class BaseActor extends Group
 
     private static Rectangle worldBounds;
 
+    public static Rectangle getWorldBounds()
+      {
+        return worldBounds;
+      }
+
     public BaseActor(float x, float y, Stage s)
       {
         // call constructor from Actor class
@@ -356,7 +361,7 @@ public class BaseActor extends Group
         Class theClass = null;
         try
         {
-            theClass = Class.forName(className);
+            theClass = Class.forName("game."+className);
         } catch (ClassNotFoundException error)
         {
             error.printStackTrace();
@@ -378,7 +383,7 @@ public class BaseActor extends Group
       }
 
     // bounding actor to certain actor or area
-    public void setWorldBounds(float width, float height)
+    public static void setWorldBounds(float width, float height)
       {
         worldBounds = new Rectangle(0, 0, width, height);
       }

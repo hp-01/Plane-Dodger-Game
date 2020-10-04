@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 public class LevelScreen extends BaseScreen
 {
 
+    Plane plane;
     @Override
     public void initialize()
       {
@@ -22,6 +23,10 @@ public class LevelScreen extends BaseScreen
         new Sky(800, 0, mainStage);
         new Ground(0, 0, mainStage);
         new Ground(800, 0, mainStage);
+        
+        // plane onto mainStage
+        plane = new Plane(100,500,mainStage);
+        BaseActor.setWorldBounds(800,600);
       }
 
     @Override
