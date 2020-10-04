@@ -6,6 +6,9 @@
 
 package game;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
 /**
  *
  * @author Harsh Pandey
@@ -16,7 +19,7 @@ public class LevelScreen extends BaseScreen
     @Override
     public void initialize()
       {
-
+        
       }
 
     @Override
