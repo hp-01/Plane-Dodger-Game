@@ -269,7 +269,7 @@ public class BaseActor extends Group
         boundaryPolygon = new Polygon(vertices);
       }
 
-    public void setBoundayPolygon(int numSides)
+    public void setBoundaryPolygon(int numSides)
       {
         float w = getWidth();
         float h = getHeight();
