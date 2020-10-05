@@ -5,6 +5,8 @@
  */
 package game;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
@@ -32,7 +34,14 @@ public class LevelScreen extends BaseScreen
     @Override
     public void update(float dt)
       {
-
+         
       }
 
+    @Override
+    public boolean keyDown(int keyCode)
+      {
+        if(keyCode == Keys.SPACE || keyCode == Keys.UP)
+            plane.boost();
+        return true;
+      }
 }
