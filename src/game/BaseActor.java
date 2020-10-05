@@ -1,3 +1,5 @@
+package game;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -594,7 +596,7 @@ public class BaseActor extends Group
 
         Class theClass = null;
         try
-        {  theClass = Class.forName(className);  }
+        {  theClass = Class.forName("game."+className);  }
         catch (Exception error)
         {  error.printStackTrace();  }
 
