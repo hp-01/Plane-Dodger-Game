@@ -5,7 +5,10 @@
  */
 package game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -25,6 +28,10 @@ public class LevelScreen extends BaseScreen
     float enemySpeed;
     boolean gameOver;
     BaseActor gameOverMessage;
+
+    Music backgroundMusic;
+    Sound sparkleSound;
+    Sound explosionSound;
 
     @Override
     public void initialize()
@@ -58,6 +65,14 @@ public class LevelScreen extends BaseScreen
         gameOverMessage.setVisible(false);
         uiTable.row();
         uiTable.add(gameOverMessage).expandY();
+
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/Prelude-and-Action.mp3"));
+        sparkleSound = Gdx.audio.newSound(Gdx.files.internal("assets/sparkle.mp3"));
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("assets/explosion.wav"));
+
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(1.00f);
+        backgroundMusic.play();
       }
 
     @Override
@@ -80,9 +95,9 @@ public class LevelScreen extends BaseScreen
             enemySpawnInterval -= 0.10f;
             enemySpeed += 10;
 
-            if (enemySpawnInterval < 0.5f)
+            if (enemySpawnInterval < 0.8f)
             {
-                enemySpawnInterval = 0.5f;
+                enemySpawnInterval = 0.8f;
             }
 
             if (enemySpeed > 400)
@@ -97,6 +112,13 @@ public class LevelScreen extends BaseScreen
             if (plane.overlaps(enemy))
             {
                 plane.remove();
+
+                Explosion ex = new Explosion(0, 0, mainStage);
+                ex.centerAtActor(plane);
+                ex.setScale(3);
+                explosionSound.play();
+                backgroundMusic.stop();
+
                 gameOver = true;
                 gameOverMessage.setVisible(true);
             }
@@ -124,6 +146,11 @@ public class LevelScreen extends BaseScreen
             if (plane.overlaps(star))
             {
                 star.remove();
+
+                Sparkle sp = new Sparkle(0, 0, mainStage);
+                sp.centerAtActor(star);
+                sparkleSound.play();
+
                 score++;
                 scoreLabel.setText(Integer.toString(score));
             }
