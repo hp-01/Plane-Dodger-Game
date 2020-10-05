@@ -11,18 +11,11 @@ package game;
  */
 public class MainGame extends BaseGame
 {
-
     @Override
     public void create()
       {
         super.create();
         this.setScreen(new LevelScreen());
-      }
-
-    @Override
-    public void dispose()
-      {
-        super.dispose();
       }
 
 }

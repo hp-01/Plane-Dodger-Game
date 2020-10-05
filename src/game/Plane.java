@@ -17,6 +17,7 @@ public class Plane extends BaseActor
         setBoundaryPolygon(8);
     }
 
+    @Override
     public void act(float dt)
     {
         super.act(dt);
@@ -44,6 +45,7 @@ public class Plane extends BaseActor
         }
 
     }
+    
 
     public void boost()
     {
