@@ -25,7 +25,7 @@ public class Plane extends BaseActor
             "assets/planeGreen0.png"
         };
         
-        this.loadAnimationFromFiles(fileNames, 0.1f, true);
+        this.loadAimationFromFiles(fileNames, 0.1f, true);
         
         setMaxSpeed(800);
         setBoundaryPolygon(8);
