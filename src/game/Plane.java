@@ -59,4 +59,9 @@ public class Plane extends BaseActor
         }
       }
     
+    public void boost()
+      {
+        setSpeed(300);
+        setMotionAngle(90);
+      }
 }
