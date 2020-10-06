@@ -6,8 +6,10 @@
 
 package game;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 /**
  *
@@ -18,6 +20,15 @@ public class Launcher
     public static void main(String[] args)
       {
         Game myGame = new MainGame();
-        LwjglApplication launcher = new LwjglApplication(myGame,"Plane Dodger",800,600);
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 800;
+        config.height = 600;
+        config.title = "Plane Dodger";
+        config.resizable = false;
+        config.addIcon("assets/icon/plane_128.png",FileType.Internal);
+        config.addIcon("assets/icon/plane_64.png",FileType.Internal);
+        config.addIcon("assets/icon/plane_32.png",FileType.Internal);
+        config.addIcon("assets/icon/plane_16.png",FileType.Internal);
+        LwjglApplication launcher = new LwjglApplication( myGame, config );
       }
 }
