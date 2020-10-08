@@ -15,7 +15,7 @@ public class MainGame extends BaseGame
     public void create()
       {
         super.create();
-        this.setScreen(new LevelScreen());
+        this.setScreen(new MenuScreen());
       }
 
 }
