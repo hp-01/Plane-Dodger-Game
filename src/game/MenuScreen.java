@@ -78,6 +78,35 @@ public class MenuScreen extends BaseScreen
         uiTable.row();
         uiTable.add(scoreLabel).colspan(2).pad(20);
 
+        BaseActor soundOffButton = new BaseActor(20, 20, uiStage);
+        soundOffButton.loadTexture("assets/soundoff.png");
+        soundOffButton.scaleBy((float) 0.8);
+        soundOffButton.addListener((Event e) ->
+        {
+            if (!isTouchDownEvent(e))
+
+            {
+                return false;
+            }
+            backgroundMusic.pause();
+
+            return true;
+        });
+
+        BaseActor soundOnButton = new BaseActor(740, 20, uiStage);
+        soundOnButton.loadTexture("assets/soundon.png");
+        soundOnButton.scaleBy((float) 0.8);
+        soundOnButton.addListener((Event e) ->
+        {
+            if (!isTouchDownEvent(e))
+
+            {
+                return false;
+            }
+            backgroundMusic.play();
+
+            return true;
+        });
       }
 
     @Override
