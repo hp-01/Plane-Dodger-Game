@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
@@ -118,6 +119,18 @@ public class LevelScreen extends BaseScreen
                 ex.setScale(3);
                 explosionSound.play();
                 backgroundMusic.stop();
+
+                FileHandle handle = null;
+                try
+                {
+                    handle = new FileHandle("main.dd");
+                    String[] previousScore = handle.readString().split("\n");
+                    if(score >  Integer.parseInt(previousScore[0]))
+                       handle.writeString(Integer.toString(score),false);
+                } catch (com.badlogic.gdx.utils.GdxRuntimeException e)
+                {
+                    handle.writeString("0", false);
+                }
 
                 gameOver = true;
                 gameOverMessage.setVisible(true);

@@ -7,6 +7,7 @@ package game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -86,6 +87,25 @@ public class MenuScreen extends BaseScreen
 
          uiTable.row();
          uiTable.add(scoreLabel).colspan(2).pad(20);*/
+        FileHandle handle = null;
+        try
+        {
+            handle = new FileHandle("main.dd");
+            String[] score = handle.readString().split("\n");
+            System.out.println("Score : " + score[0]);
+            Label scoreLabel = new Label("High Score: " + score[0], BaseGame.labelStyle);
+            uiTable.row();
+            uiTable.add(scoreLabel).colspan(3).pad(20);
+        } catch (com.badlogic.gdx.utils.GdxRuntimeException ex)
+        {
+            handle.writeString("0", false);
+            String[] score = handle.readString().split("\n");
+            Label scoreLabel = new Label("High Score: " + score[0], BaseGame.labelStyle);
+            uiTable.row();
+            uiTable.add(scoreLabel).colspan(3).pad(20);
+        }
+
+        //Label scoreLabel = new Label("High Score: "+score[0], BaseGame.labelStyle );
         BaseActor soundOffButton = new BaseActor(20, 20, uiStage);
         soundOffButton.loadTexture("assets/soundoff.png");
         soundOffButton.scaleBy((float) 0.8);
