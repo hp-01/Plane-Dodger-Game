@@ -92,7 +92,6 @@ public class MenuScreen extends BaseScreen
         {
             handle = new FileHandle("main.dd");
             String[] score = handle.readString().split("\n");
-            System.out.println("Score : " + score[0]);
             Label scoreLabel = new Label("High Score: " + score[0], BaseGame.labelStyle);
             uiTable.row();
             uiTable.add(scoreLabel).colspan(3).pad(20);
