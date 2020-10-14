@@ -10,9 +10,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Align;
 
 public class LevelScreen extends BaseScreen
 {
@@ -51,21 +52,67 @@ public class LevelScreen extends BaseScreen
         score = 0;
         scoreLabel = new Label(Integer.toString(score), BaseGame.labelStyle);
         uiTable.pad(10);
-        uiTable.add(scoreLabel).align(Align.center);
-        uiTable.row();
-        uiTable.add().expandY();
+        uiTable.add(scoreLabel).expandX();
         BaseActor.setWorldBounds(800, 600);
 
         enemyTimer = 0;
         enemySpeed = 100;
         enemySpawnInterval = 3;
 
+        BaseActor homeButton = new BaseActor(0, 0, uiStage);
+        homeButton.loadTexture("assets/home.png");
+        homeButton.setColor(Color.BLACK);
+
+        homeButton.addListener(
+                (Event e) ->
+                {
+                    if (!isTouchDownEvent(e))
+                    {
+                        return false;
+                    }
+
+                    backgroundMusic.dispose();
+                    sparkleSound.dispose();
+                    explosionSound.dispose();
+
+                    MainGame.setActiveScreen(new MenuScreen());
+                    return true;
+                }
+        );
+
+        uiTable.pad(10);
+        uiTable.add(homeButton).expandX();
+
+        BaseActor retryButton = new BaseActor(0, 0, uiStage);
+        retryButton.loadTexture("assets/retry.png");
+        retryButton.setColor(Color.BLACK);
+
+        retryButton.addListener(
+                (Event e) ->
+                {
+                    if (!isTouchDownEvent(e))
+                    {
+                        return false;
+                    }
+
+                    backgroundMusic.dispose();
+                    sparkleSound.dispose();
+                    explosionSound.dispose();
+
+                    MainGame.setActiveScreen(new LevelScreen());
+                    return true;
+                }
+        );
+
+        uiTable.pad(10);
+        uiTable.add(retryButton).expandX();
+
         gameOver = false;
         gameOverMessage = new BaseActor(0, 0, uiStage);
         gameOverMessage.loadTexture("assets/game-over.png");
         gameOverMessage.setVisible(false);
         uiTable.row();
-        uiTable.add(gameOverMessage).expandY();
+        uiTable.add(gameOverMessage).expandY().colspan(3);
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/Prelude-and-Action.mp3"));
         sparkleSound = Gdx.audio.newSound(Gdx.files.internal("assets/sparkle.mp3"));
