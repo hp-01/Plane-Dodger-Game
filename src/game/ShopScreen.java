@@ -49,18 +49,18 @@ public class ShopScreen extends BaseScreen
 
         String[] planes =
         {
-            "planeBrown0.png", "planeGreen0.png"
+            "planeGreen0.png", "planeBrown0.png", "planeBlue0.png", "planeGrey0.png", "planePink0.png", "planeYellow0.png", "planeSpecial0.png"
         };
-        
-        String[] price = 
+
+        String[] price =
         {
-            "1000","1000"
+            "1000", "2000", "3000", "4000", "5000", "6000", "10000"
         };
-        Table t2 = new Table(); //actually instead of Table I use Tree, because it has selector, but I think for example Table is OK
-        for (int row = 0; row < 2; row++)
+        Table t2 = new Table();
+        t2.pad(50);
+        for (int row = 0; row < 7; row++)
         {
-            t2.add(new Label("Very 1," + row, BaseGame.labelStyle)).expandX();
-            t2.add(new Label("Very 2," + row, BaseGame.labelStyle)).expandX();
+            t2.add(shopItem(planes[row], price[row])).expandX();
             t2.row();
         }
         ScrollPane s2Pane = new ScrollPane(t2);
@@ -74,5 +74,31 @@ public class ShopScreen extends BaseScreen
     public void update(float dt)
       {
 
+      }
+
+    public Table shopItem(String planeName, String price)
+      {
+        BaseActor item = new BaseActor(0, 0, uiStage);
+        item.loadTexture("assets/"+planeName);
+        item.addListener((Event e) ->
+        {
+            if(!isTouchDownEvent(e))
+                return false;
+            System.out.println(planeName + price);
+            return true;
+        });
+        Label label = new Label(price,BaseGame.labelStyle);
+        label.addListener((Event e) ->
+        {
+            if(!isTouchDownEvent(e))
+                return false;
+            System.out.println(planeName + price);
+            return true;
+        });
+        Table table = new Table();
+        table.add(item);
+        table.row();
+        table.add(label);
+        return table;
       }
 }
