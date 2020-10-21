@@ -8,28 +8,29 @@ package game;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
- * 
+ *
  * @author Harsh Pandey
  */
-
 public class Plane extends BaseActor
 {
-    public Plane(float x, float y, Stage s)
-    {
-        super(x,y,s);
-        String[] filenames = 
-            {"assets/planeGreen0.png", "assets/planeGreen1.png",
-                "assets/planeGreen2.png", "assets/planeGreen1.png"};
 
-        loadAnimationFromFiles(filenames, 0.1f, true);
+    public Plane(float x, float y, Stage s, String[] planes)
+      {
+        super(x, y, s);
+
+        loadAnimationFromFiles(planes, 0.1f, true);
+        for (String plane : planes)
+        {
+            System.out.println(plane);
+        }
 
         setMaxSpeed(800);
         setBoundaryPolygon(8);
-    }
+      }
 
     @Override
     public void act(float dt)
-    {
+      {
         super.act(dt);
 
         // simulate force of gravity
@@ -40,7 +41,7 @@ public class Plane extends BaseActor
         // stop plane from passing through the ground
         for (BaseActor g : BaseActor.getList(this.getStage(), "Ground"))
         {
-            if ( this.overlaps(g) )
+            if (this.overlaps(g))
             {
                 setSpeed(0);
                 preventOverlap(g);
@@ -48,19 +49,18 @@ public class Plane extends BaseActor
         }
 
         // stop plane from moving past top of screen
-        if ( getY() + getHeight() > getWorldBounds().height )
+        if (getY() + getHeight() > getWorldBounds().height)
         {
             setSpeed(0);
             boundToWorld();
         }
 
-    }
-    
+      }
 
     public void boost()
-    {
+      {
         setSpeed(300);
         setMotionAngle(90);
-    }   
+      }
 
 }

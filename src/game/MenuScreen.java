@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  */
 public class MenuScreen extends BaseScreen
 {
-
     public String score = "0";
 
     @Override
@@ -39,7 +38,7 @@ public class MenuScreen extends BaseScreen
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(1.00f);
         backgroundMusic.play();
-
+        
         TextButton shopButton = new TextButton("Shop", BaseGame.textButtonStyle);
         shopButton.addListener(
                 (Event e) ->

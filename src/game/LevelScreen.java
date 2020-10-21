@@ -44,8 +44,25 @@ public class LevelScreen extends BaseScreen
         new Ground(0, 0, mainStage);
         new Ground(800, 0, mainStage);
 
+        String[] mainPlanes =
+        {
+            "assets/planeGreen0.png", "assets/planeGreen1.png", "assets/planeGreen2.png", "assets/planeGreen0.png"
+        };
+        
+        String[] planes = null;
+        FileHandle handle = null;
+        try
+        {
+            handle = new FileHandle("src/assets/plane.txt");
+            planes = handle.readString().split("\n");
+        } catch (com.badlogic.gdx.utils.GdxRuntimeException ex)
+        {
+            for(int i=0;i<=3;i++)
+                handle.writeString(mainPlanes[i]+"\n", true);
+            planes = mainPlanes;
+        }
         // plane onto mainStage
-        plane = new Plane(100, 500, mainStage);
+        plane = new Plane(100, 500, mainStage, planes);
         BaseActor.setWorldBounds(800, 600);
 
         startTimer = 0;
@@ -180,6 +197,17 @@ public class LevelScreen extends BaseScreen
                 } catch (com.badlogic.gdx.utils.GdxRuntimeException e)
                 {
                     handle.writeString("0", false);
+                }
+                
+                try
+                {
+                    handle = new FileHandle("src/assets/sc.txt");
+                    int i = Integer.parseInt(handle.readString());
+                    handle.writeString(String.valueOf(i+score)+"\n", false);
+                }
+                catch(com.badlogic.gdx.utils.GdxRuntimeException e)
+                {
+                    handle.writeString(String.valueOf(score)+"\n", false);
                 }
 
                 gameOver = true;
