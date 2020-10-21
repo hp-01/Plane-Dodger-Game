@@ -19,11 +19,6 @@ public class Plane extends BaseActor
         super(x, y, s);
 
         loadAnimationFromFiles(planes, 0.1f, true);
-        for (String plane : planes)
-        {
-            System.out.println(plane);
-        }
-
         setMaxSpeed(800);
         setBoundaryPolygon(8);
       }

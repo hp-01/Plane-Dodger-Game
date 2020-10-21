@@ -1,4 +1,4 @@
-assets/planeYellow0.png
-assets/planeYellow1.png
-assets/planeYellow2.png
-assets/planeYellow0.png
+assets/planeBrown0.png
+assets/planeBrown1.png
+assets/planeBrown2.png
+assets/planeBrown0.png
