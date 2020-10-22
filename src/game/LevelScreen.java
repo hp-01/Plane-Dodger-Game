@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Align;
 
 public class LevelScreen extends BaseScreen
 {
@@ -48,7 +47,7 @@ public class LevelScreen extends BaseScreen
         {
             "assets/planeGreen0.png", "assets/planeGreen1.png", "assets/planeGreen2.png", "assets/planeGreen0.png"
         };
-        
+
         String[] planes = null;
         FileHandle handle = null;
         try
@@ -57,8 +56,10 @@ public class LevelScreen extends BaseScreen
             planes = handle.readString().split("\n");
         } catch (com.badlogic.gdx.utils.GdxRuntimeException ex)
         {
-            for(int i=0;i<=3;i++)
-                handle.writeString(mainPlanes[i]+"\n", true);
+            for (int i = 0; i <= 3; i++)
+            {
+                handle.writeString(mainPlanes[i] + "\n", true);
+            }
             planes = mainPlanes;
         }
         // plane onto mainStage
@@ -97,10 +98,10 @@ public class LevelScreen extends BaseScreen
                     return true;
                 }
         );
-        
+
         uiTable.pad(10);
         uiTable.add(homeButton).expandX();
-        
+
         BaseActor retryButton = new BaseActor(0, 0, uiStage);
         retryButton.loadTexture("assets/retry.png");
         retryButton.setColor(Color.BLACK);
@@ -121,7 +122,7 @@ public class LevelScreen extends BaseScreen
                     return true;
                 }
         );
-        
+
         uiTable.pad(10);
         uiTable.add(retryButton).expandX();
 
@@ -198,16 +199,15 @@ public class LevelScreen extends BaseScreen
                 {
                     handle.writeString("0", false);
                 }
-                
+
                 try
                 {
                     handle = new FileHandle("src/assets/sc.txt");
                     int i = Integer.parseInt(handle.readString().split("\n")[0]);
-                    handle.writeString(String.valueOf(i+score)+"\n", false);
-                }
-                catch(com.badlogic.gdx.utils.GdxRuntimeException e)
+                    handle.writeString(String.valueOf(i + score) + "\n", false);
+                } catch (com.badlogic.gdx.utils.GdxRuntimeException e)
                 {
-                    handle.writeString(String.valueOf(score)+"\n", false);
+                    handle.writeString(String.valueOf(score) + "\n", false);
                     handle = new FileHandle("main.dd");
                     handle.writeString(String.valueOf(score), false);
                 }
