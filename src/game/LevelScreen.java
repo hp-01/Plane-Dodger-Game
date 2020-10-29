@@ -203,11 +203,13 @@ public class LevelScreen extends BaseScreen
                 try
                 {
                     handle = new FileHandle("src/assets/sc.txt");
-                    int i = Integer.parseInt(handle.readString().split("\n")[0]);
-                    handle.writeString(String.valueOf(i + score) + "\n", false);
+                    String previousScore = handle.readString();
+                    //System.out.println(previousScore);
+                    int total = Integer.parseInt(previousScore) + score;
+                    handle.writeString(String.valueOf(total), false);
                 } catch (com.badlogic.gdx.utils.GdxRuntimeException e)
                 {
-                    handle.writeString(String.valueOf(score) + "\n", false);
+                    handle.writeString(String.valueOf(score), false);
                     handle = new FileHandle("main.dd");
                     handle.writeString(String.valueOf(score), false);
                 }
