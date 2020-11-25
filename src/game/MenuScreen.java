@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 
 /**
  *
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  */
 public class MenuScreen extends BaseScreen
 {
+
     public String score = "0";
 
     @Override
@@ -38,7 +40,7 @@ public class MenuScreen extends BaseScreen
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(1.00f);
         backgroundMusic.play();
-        
+
         TextButton shopButton = new TextButton("Shop", BaseGame.textButtonStyle);
         shopButton.addListener(
                 (Event e) ->
@@ -81,6 +83,20 @@ public class MenuScreen extends BaseScreen
         uiTable.add(playButton).expandX();
         uiTable.add(quitButton).expandX();
 
+        TextButton multiButton = new TextButton("MultiPlayer", BaseGame.textButtonStyle);
+        multiButton.addListener(
+                (Event e) ->
+                {
+                    if (!isTouchDownEvent(e))
+                    {
+                        return false;
+                    }
+                    MainGame.setActiveScreen(new MultiPlayerScreen());
+                    return true;
+                });
+
+        uiTable.row();
+        uiTable.add(multiButton).colspan(3).align(Align.center);
         /*String[] score = Gdx.files.internal("assets/main.dd").readString().split("\n");
          Label scoreLabel = new Label("High Score: " + score[0], BaseGame.labelStyle);
 
