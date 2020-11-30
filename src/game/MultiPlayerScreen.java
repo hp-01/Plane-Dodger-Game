@@ -41,12 +41,7 @@ public class MultiPlayerScreen extends BaseScreen {
     boolean gameOver;
     boolean messageScreen;
     private String myID;
-    private String messageType;
     private String otherID;
-    private boolean requested;
-    private boolean accepted;
-    private boolean rejected;
-    private boolean won;
     private boolean start;
     private float ping;
     private ExampleClient c;
@@ -69,8 +64,8 @@ public class MultiPlayerScreen extends BaseScreen {
         new Ground(800.0f, 0.0f, mainStage);
         final String[] myPlanes = {"assets/planeGreen0.png", "assets/planeGreen1.png", "assets/planeGreen2.png", "assets/planeGreen0.png"};
         final String[] enemyPlanes = {"assets/planeBlue0.png", "assets/planeBlue1.png", "assets/planeBlue2.png", "assets/planeBlue0.png"};
+        enemyPlane = new Plane(90.0f, 500.0f, mainStage, enemyPlanes);
         myPlane = new Plane(100.0f, 500.0f, mainStage, myPlanes);
-        enemyPlane = new Plane(100.0f, 500.0f, mainStage, enemyPlanes);
         BaseActor.setWorldBounds(800.0f, 600.0f);
         startTimer = 0.0f;
         starSpawnInterval = 4.0f;
@@ -123,11 +118,7 @@ public class MultiPlayerScreen extends BaseScreen {
         ping = 0.0f;
         (obj = new JSONObject()).put("messageType", "");
         myID = "";
-        messageType = "";
         otherID = "";
-        requested = false;
-        accepted = false;
-        rejected = false;
         start = false;
         enemyPlaneNo = 0;
         starNo = 0;
@@ -155,9 +146,6 @@ public class MultiPlayerScreen extends BaseScreen {
                     obj.put("otherID", otherID.trim());
                     c.send(obj.toJSONString());
                     obj.clear();
-                    requested = false;
-                    accepted = false;
-                    rejected = false;
                     messageLabel.setText("REUEST SENT TO " + otherID);
                     return true;
                 }
@@ -344,13 +332,11 @@ public class MultiPlayerScreen extends BaseScreen {
                 myID = obj.get("myID").toString();
                 myIDLabel.setText("Your ID: " + myID);
             } else if (obj.get("messageType").toString().equals("REQUESTED")) {
-                requested = true;
                 if (obj.get("otherID") != null) {
                     otherID = obj.get("otherID").toString();
                 }
                 messageLabel.setText("REQUEST FROM " + otherID);
             } else if (obj.get("messageType").toString().equals("ACCEPTED")) {
-                accepted = true;
                 if (obj.get("otherID") != null) {
                     otherID = obj.get("otherID").toString();
                 }
@@ -363,7 +349,6 @@ public class MultiPlayerScreen extends BaseScreen {
                 jArray.clear();
                 messageLabel.setText("ACCEPTED BY " + otherID);
             } else if (obj.get("messageType").toString().equals("REJECTED")) {
-                rejected = true;
                 if (obj.get("otherID") != null) {
                     otherID = obj.get("otherID").toString();
                 }
@@ -400,7 +385,7 @@ public class MultiPlayerScreen extends BaseScreen {
                 table.setVisible(true);
             } else if (obj.get("messageType").toString().equals("KEYSTROKE")) {
                 enemyPlane.boost();
-            } else if (obj.get("messageType").toString().equals("START") && !start && accepted) {
+            } else if (obj.get("messageType").toString().equals("START") && !start) {
                 table.setVisible(false);
                 start = true;
             }
