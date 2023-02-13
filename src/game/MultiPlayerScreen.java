@@ -124,7 +124,7 @@ public class MultiPlayerScreen extends BaseScreen {
         starNo = 0;
         COUNT = 0;
         try {
-            (c = new ExampleClient(new URI("wss://ws-connection-heroku.herokuapp.com/"))).connect();
+            (c = new ExampleClient(new URI("wss://walrus-app-3-dvpgp.ondigitalocean.app/"))).connect();
         } catch (Exception e2) {
             System.out.println(e2);
         }
